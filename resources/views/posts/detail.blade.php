@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Image | Detail</title>
+    <title>{{ $post->title }}</title>
             <!-- Fonts -->
             <link rel="preconnect" href="https://fonts.bunny.net">
             <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
@@ -19,9 +19,12 @@
         <div class="flex flex-col md:flex-row bg-white shadow-lg z-10 p-5 rounded">
             <div class="post">
                 <!-- Display Image -->
-                <img src="{{ asset('images/' . $post->image) }}" alt="{{ $post->title }}" class="w-4/5 rounded">
+                <a href="{{ asset('images/' . $post->image) }}" target="_blank">
+                    <img src="{{ asset('images/' . $post->image) }}" alt="{{ $post->title }}" class="w-4/5 rounded cursor-pointer">
+                </a>
                 <!-- Display Title -->
                 <h1 class="text-3xl font-bold">{{ $post->title }}</h1>
+                <p class="text-sm text-gray-500">Uploaded by: <strong>{{ $post->user->name }}</strong></p>
                 <p class="font-book">{{ $post->description }}</p>
             </div>
             <div class="md:w-1/3 md:pl-4">
@@ -39,7 +42,7 @@
                     <small>{{ $comment->created_at->diffForHumans() }}</small>
                 </div>
             @endforeach
-        </div>
+        </div>  
         <!-- Comment Form -->
         <form id="commentForm" class="mt-4">
             @csrf
