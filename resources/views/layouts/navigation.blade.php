@@ -13,13 +13,18 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
+                        {{ __('Home') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('upload')">
-                        {{ __('Upload') }}
+                        {{ __('Album') }}
                     </x-nav-link>
                 </div>
             </div>
