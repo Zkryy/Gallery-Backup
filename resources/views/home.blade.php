@@ -13,9 +13,9 @@
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body>
+<body class="bg-gray-100">
     @include('layouts.navigation')
-    <div class="pb-16 pt-32 mx-auto bg-gray-100 relative z-10">
+    <div class="pb-16 mt-10 mx-auto bg-gray-100 relative">
         <div class="columns-4 max-w-7xl mx-auto sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 relative z-10">
             @foreach($posts as $post)
                 <div class="flex justify-center relative group">
@@ -23,7 +23,7 @@
                         <div class="bg-gray-200 overflow-hidden rounded-lg relative transition-transform duration-300 transform hover:scale-105">
                             <img src="{{ asset('images/' . $post->image)}}" class="object-cover w-full aspect-square" alt="Post Image">
                             <!-- Title container -->
-                            <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-65 pt-2 pb-4 px-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-55 pt-2 pb-4 px-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                 <h1 class="text-white text-center font-thin">{{ $post->title }}</h1>
                             </div>
                         </div>
@@ -32,6 +32,8 @@
             @endforeach
         </div>
     </div>
-    
+    <div>
+        
+    </div>
 </body>
 </html>

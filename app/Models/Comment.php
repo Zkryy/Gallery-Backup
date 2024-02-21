@@ -9,7 +9,7 @@ class Comment extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'content'];
+    protected $fillable = ['user_id', 'post_id', 'content'];
 
     // Define relationships
     public function user()
@@ -17,13 +17,9 @@ class Comment extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function image()
-    {
-        return $this->belongsTo(Image::class);
-    }
-
     public function post()
     {
         return $this->belongsTo(Post::class);
     }
 }
+

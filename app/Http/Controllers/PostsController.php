@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
@@ -87,14 +88,27 @@ class PostsController extends Controller
     public function comment(Request $request, Post $post)
     {
         $request->validate([
-            'comment' => ['required', 'string', 'max:255'],
+            'content' => ['required', 'string', 'max:255'],
         ]);
-
+    
         $post->comments()->create([
-            'content' => $request->comment,
+            'content' => $request->content,
             'user_id' => auth()->id(),
         ]);
-
+    
         return back();
     }
+
+    public function delete(Comment $comment)
+    {
+        // Check if the authenticated user is authorized to delete the comment
+        if ($comment->user_id === auth()->id()) {
+            // Delete the comment
+            $comment->delete();
+        }
+        
+        return back(); // Redirect back to the page where the comment was deleted from
+    }
+
+    
 }

@@ -25,6 +25,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/posts/{post}', [PostsController::class, 'show'])->name('detail');
     Route::post('/posts/{post}/like', [PostsController::class, 'like'])->name('posts.like');
     Route::post('/posts/{post}/comment', [PostsController::class, 'comment'])->name('posts.comment');
+    Route::delete('/comments/{comment}', [PostsController::class, 'delete'])->name('comments.delete');
 });
 
 // Dashboard route
