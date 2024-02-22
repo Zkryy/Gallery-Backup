@@ -23,7 +23,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/posts/{post}', [PostsController::class, 'update'])->name('posts.update');
     Route::delete('/posts/{post}', [PostsController::class, 'destroy'])->name('posts.delete');
     Route::get('/posts/{post}', [PostsController::class, 'show'])->name('detail');
-    Route::post('/posts/{post}/like', [PostsController::class, 'like'])->name('posts.like');
+    Route::post('/like/{post}', 'PostsController@like')->name('posts.like');
+    Route::post('/unlike/{post}', 'PostsController@unlike')->name('posts.unlike');
     Route::post('/posts/{post}/comment', [PostsController::class, 'comment'])->name('posts.comment');
     Route::delete('/comments/{comment}', [PostsController::class, 'delete'])->name('comments.delete');
 });

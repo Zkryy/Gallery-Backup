@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Models\Like;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;    
 use App\Models\Post;
 use App\Models\Comment;
 use Illuminate\Http\Request;
@@ -76,14 +80,54 @@ class PostsController extends Controller
     
     public function show(Post $post)
     {
+        $post->loadCount('likes'); // Eager load likes count
         return view('posts.detail', compact('post'));
     }
 
     public function like(Post $post)
     {
-        $post->likes()->toggle(auth()->id());
-        return back();
+        $user = Auth::user();
+        
+        // Check if the user has already liked the post
+        $existingLike = Like::where('user_id', $user->id)
+                            ->where('post_id', $post->id)
+                            ->first();
+        
+        if ($existingLike) {
+            // User has already liked the post, so unlike it
+            $existingLike->delete();
+        } else {
+            // User hasn't liked the post yet, so create a new like
+            $like = new Like();
+            $like->user_id = $user->id;
+            $like->post_id = $post->id;
+            $like->save();
+        }
+        
+        // Return updated likes count
+        $likesCount = $post->likes()->count();
+        return response()->json(['likesCount' => $likesCount]);
     }
+    
+    public function unlike(Post $post)
+    {
+        $user = Auth::user();
+        
+        // Find the like record for the user and post
+        $existingLike = Like::where('user_id', $user->id)
+                            ->where('post_id', $post->id)
+                            ->first();
+        
+        if ($existingLike) {
+            // Delete the like record
+            $existingLike->delete();
+        }
+        
+        // Return updated likes count
+        $likesCount = $post->likes()->count();
+        return response()->json(['likesCount' => $likesCount]);
+    }
+    
 
     public function comment(Request $request, Post $post)
     {
@@ -109,6 +153,4 @@ class PostsController extends Controller
         
         return back(); // Redirect back to the page where the comment was deleted from
     }
-
-    
 }
