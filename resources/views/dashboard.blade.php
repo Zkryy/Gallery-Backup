@@ -1,12 +1,27 @@
 <x-app-layout>
-    <div class="bg-gray-100 mb-10 ml-10 mt-10">
-        <h1 class="text-3xl mb-2 font-medium">
+    <div class="bg-gray-100 mb-6 ml-10 mt-10 text-center justify-center">
+        <h1 class="text-4xl mb-2 font-medium">
             welcome to <strong>Dashboard!</strong>
         </h1>
         <p>
-            All image that Displaying down here are <strong>Image Post</strong> that you have been made, so you can change their <b>Title</b>, <b>Description</b>, or even <b>Delete</b> it. 
+            The dashboard feature offers users a centralized hub to manage their account, view personalized content, track activity, and access relevant tools or information, enhancing user experience and facilitating seamless navigation within the platform.
         </p>
     </div>
+    <div class="pt-5 mb-16">
+        <div class="max-w-7xl sm:px-6 lg:px-8 mb-1">
+            <div class="bg-white overflow-hidden rounded-lg shadow-md">
+                @include('upload')
+            </div>
+        </div>
+    </div>
+    <div class="bg-gray-100 my-10 ml-10">
+        <h1 class="text-3xl font-medium">
+            You have <strong>{{ count(auth()->user()->posts) }} Image Post</strong> on your current Dashboard
+        </h1>
+        <p class="pl-1 pt-2">
+            All image that Displaying down here are <strong>Image Post</strong> that you have been made, so you can change their <b>Title</b>, <b>Description</b>, or even <b>Delete</b> it. 
+        </p>
+    </div>  
     <div class="pb-5 mx-auto relative z-10">
         <div class="columns-4 max-w-7xl mx-auto sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 relative z-10 bg-white p-10 mr-9 ml-9 rounded shadow-lg">
             @foreach($posts as $post)
@@ -48,18 +63,6 @@
                     </div>
                 </div>  
             @endforeach
-        </div>
-    </div>
-    <div class="pt-5 mb-16">
-        <div class="bg-gray-100 my-10">
-            <h1 class="text-3xl ml-10 font-medium">
-                You have <strong>{{ count(auth()->user()->posts) }} Image Post</strong> on your current Dashboard
-            </h1>
-        </div>  
-        <div class="max-w-7xl sm:px-6 lg:px-8 mb-1">
-            <div class="bg-white overflow-hidden rounded-lg shadow-md">
-                @include('upload')
-            </div>
         </div>
     </div>
 </x-app-layout>

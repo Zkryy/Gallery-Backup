@@ -15,20 +15,23 @@
 </head>
 <body class="bg-gray-100">
     @include('layouts.navigation')
+    <div class="pb-5 pt-10 justify-start ml-10">
+        <h1 class="text-3xl text-left font-medium pb-2">
+            <strong>Edit!</strong> your image post detail
+        </h1>
+        <p>
+            on this page you can <b>change</b> or <b>update</b> previous detail of your <b>Image Post</b> so, dont worry if there's a typo when typed your <b>title</b> or <b>description</b>, we got you!
+        </p>
+    </div>
 
-    <div class="max-w-screen-xl mx-auto flex justify-center mt-5 mr-10 ml-10 bg-white rounded shadow-lg p-5">
+    <div class="max-w-screen-xl mx-auto flex justify-center mt-5 mr-10 ml-10 mb-10 bg-white rounded shadow-lg p-5">
         <div class="flex items-start justify-center w-full">
             <!-- Image -->
             <div>
-                <img src="{{ asset('images/' . $post->image)}}" class="object-cover w-full h-48 md:h-auto rounded cursor-pointer" alt="Post Image">
+                <img src="{{ asset('images/' . $post->image)}}" class="object-cover w-full h-48 md:h-auto rounded" alt="Post Image">
             </div>            
             <!-- Form -->
-            <div class="w-1/2 ml-8">
-                <div class="pb-5 pt-24">
-                    <h1 class="text-3xl text-left">
-                        Edit your <strong>Image Post</strong> detail
-                    </h1>
-                </div>
+            <div class="w-1/2 ml-8 mt-10">
                 <div class="">
                     <form action="{{ route('posts.update', ['post' => $post->id]) }}" method="POST" enctype="multipart/form-data" class="space-y-2">
                         @csrf

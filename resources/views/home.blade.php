@@ -16,6 +16,16 @@
 <body class="bg-gray-100">
     @include('layouts.navigation')
     <div class="pb-16 mt-10 mx-auto bg-gray-100 relative">
+        <!-- Search Form -->
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 px-4 pt-2 pb-5">
+            <form action="{{ route('home') }}" method="GET">
+                <div class="flex justify-center">
+                    <input type="text" name="query" class="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal" placeholder="Search images...">
+                    <button type="submit" class="ml-2 bg-black hover:invert text-white font-bold py-2 px-4 rounded">Search</button>
+                </div>
+            </form>
+        </div>
+        <!-- Image Grid -->
         <div class="columns-4 max-w-7xl mx-auto sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 relative z-10">
             @foreach($posts as $post)
                 <div class="flex justify-center relative group">
@@ -32,8 +42,11 @@
             @endforeach
         </div>
     </div>
-    <div>
-        
-    </div>
+    <div class="mt-3 mb-16 ml-10">
+        <h1 class="text-4xl font-medium">
+            Not seeing your image up there?, lets try to <strong><a class="hover:underline" href="{{ route('dashboard')}}">Upload!</a></strong>
+        </h1>
+    </div>  
 </body>
+
 </html>

@@ -1,4 +1,9 @@
-<div class="max-w-lg ml-6 pb-6">
+<div class="max-w-lg ml-6 pb-8 pt-4">
+    <div class="my-3">
+        <h1 class="text-2xl font-medium">
+            <strong>Upload!</strong> your own image
+        </h1>
+    </div>  
     <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
         @csrf
         <div>

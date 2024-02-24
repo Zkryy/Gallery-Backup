@@ -77,11 +77,34 @@ class PostsController extends Controller
 
         return redirect()->route('dashboard')->with('success', 'Post deleted successfully.');
     }
+
+    public function index(Request $request)
+    {
+        $query = $request->input('query');
+
+        // Filter images based on the search query
+        $posts = Post::query();
+
+        if ($query) {
+            $posts->where('title', 'like', "%$query%")
+                ->orWhere('description', 'like', "%$query%");
+        }
+
+        $posts = $posts->get();
+
+        return view('home', compact('posts'));
+    }
     
     public function show(Post $post)
     {
         $post->loadCount('likes'); // Eager load likes count
         return view('posts.detail', compact('post'));
+    }
+    
+    public function showGuest(Post $post)
+    {
+        $post->loadCount('likes'); // Eager load likes count
+        return view('posts.detail_guest', compact('post'));
     }
 
     public function like(Post $post)

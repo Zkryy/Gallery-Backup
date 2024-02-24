@@ -25,7 +25,7 @@
                         <a href="{{ asset('images/' . $post->image) }}" target="_blank">
                             <img src="{{ asset('images/' . $post->image) }}" alt="{{ $post->title }}" class="w-full rounded cursor-pointer">
                         </a>
-                        <div class="md:w-1/3 mt-3 justify-end">
+                        <div class="flex mt-3 justify-start">
                             <!-- Download Image Button -->
                             <a href="{{ asset('images/' . $post->image) }}" download="{{ $post->title }}.jpg" title="Download the image">
                                 <button type="button" class="bg-white hover:invert p-2 rounded-full mr-2 transition-transform duration-300 transform hover:scale-105">
@@ -38,14 +38,14 @@
                             <form id="likeForm" action="{{ route('posts.like', ['post' => $post->id]) }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="post_id" value="{{ $post->id }}">
-                                <button id="likeButton" type="submit" class="bg-white p-2 rounded-full transition-transform duration-300 transform hover:scale-105" title="Like the image" aria-label="Like the image">
+                                <button id="likeButton" type="submit" class="bg-white p-2 rounded-full transition-transform duration-300 transform hover:scale-105 hover:invert" title="Like the image" aria-label="Like the image">
                                     <svg fill="#000000" width="30px" height="30px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M20.5,4.609A5.811,5.811,0,0,0,16,2.5a5.75,5.75,0,0,0-4,1.455A5.75,5.75,0,0,0,8,2.5,5.811,5.811,0,0,0,3.5,4.609c-.953,1.156-1.95,3.249-1.289,6.66,1.055,5.447,8.966,9.917,9.3,10.1a1,1,0,0,0,.974,0c.336-.187,8.247-4.657,9.3-10.1C22.45,7.858,21.453,5.765,20.5,4.609Zm-.674,6.28C19.08,14.74,13.658,18.322,12,19.34c-2.336-1.41-7.142-4.95-7.821-8.451-.513-2.646.189-4.183.869-5.007A3.819,3.819,0,0,1,8,4.5a3.493,3.493,0,0,1,3.115,1.469,1.005,1.005,0,0,0,1.76.011A3.489,3.489,0,0,1,16,4.5a3.819,3.819,0,0,1,2.959,1.382C19.637,6.706,20.339,8.243,19.826,10.889Z"/>
                                     </svg>
                                 </button>
                             </form>
                             <!-- Likes Count -->
-                            <span id="likeCount">{{ $post->likes_count }}</span>                            
+                            <span id="likeCount" class="pt-3 ml-1">{{ $post->likes_count }}</span>                            
                         </div>
                     </div>
                     <div class="w-2/4 ml-8">
@@ -83,40 +83,40 @@
         <form action="{{ route('posts.comment', ['post' => $post->id]) }}" method="post" id="commentForm" class="mt-4">
             @csrf
             <div class="flex">
-                <textarea name="content" id="commentContent" class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" rows="3" placeholder="Add a comment"></textarea>
-                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 ml-2 rounded">Submit</button>
+                <textarea name="content" id="commentContent" class="w-full rounded-lg border-black focus:border-gray-500 focus:ring focus:black" rows="3" placeholder="Add a comment"></textarea>
+                <button type="submit" class="bg-black hover:invert text-white font-bold py-2 px-4 ml-2 rounded">Submit</button>
             </div>
         </form> 
     </div>
     
     <script>
-    // Select the like button
-    document.addEventListener('DOMContentLoaded', function() {
-    var likeForm = document.getElementById('likeForm');
-    var likeCountElement = document.getElementById('likeCount');
+        // Select the like button
+        document.addEventListener('DOMContentLoaded', function() {
+            var likeForm = document.getElementById('likeForm');
+            var likeCountElement = document.getElementById('likeCount');
 
-    likeForm.addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent the default form submission
-        
-        var formData = new FormData(likeForm); // Get form data
-        
-        // Send AJAX request to like/unlike the post
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', likeForm.action, true);
-        xhr.setRequestHeader('X-CSRF-TOKEN', '{{ csrf_token() }}');
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.status === 200) {
-                    var response = JSON.parse(xhr.responseText);
-                    likeCountElement.innerText = response.likesCount;
-                } else {
-                    console.error('Error liking/unliking post:', xhr.status);
-                }
-            }
-        };
-        xhr.send(formData);
-    });
-});
+            likeForm.addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent the default form submission
+                
+                var formData = new FormData(likeForm); // Get form data
+                
+                // Send AJAX request to like/unlike the post
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', likeForm.action, true);
+                xhr.setRequestHeader('X-CSRF-TOKEN', '{{ csrf_token() }}');
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status === 200) {
+                            var response = JSON.parse(xhr.responseText);
+                            likeCountElement.innerText = response.likesCount;
+                        } else {
+                            console.error('Error liking/unliking post:', xhr.status);
+                        }
+                    }
+                };
+                xhr.send(formData);
+            });
+        });
 
 
 
