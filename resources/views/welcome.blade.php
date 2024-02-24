@@ -68,9 +68,9 @@
         </div>
     </section>
     <section class="bg-blue">
-        <header class="text-center pt-10 pb-10 mb-52">
+        <header class="text-center pt-10 pb-10 mb-44">
             <p class="text-xl mb-2">want to see another images?. you have to </p>
-            <h1 class="text-5xl font-medium"><a href="{{ url('/login') }}" class="font-bold hover:underline">Upload!</a> or <a href="{{ url('/dashboard') }}" class="font-bold hover:underline">Register!</a></h1>
+            <h1 class="text-5xl font-medium"><a href="{{ url('/login') }}" class="font-bold hover:underline">Upload!</a> or <a href="{{ url('/register') }}" class="font-bold hover:underline">Register!</a></h1>
         </header>
     </section>
     <hr class="border-gray-300"/>

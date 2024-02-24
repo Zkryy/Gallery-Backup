@@ -12,7 +12,7 @@ require __DIR__.'/auth.php';
 // Homepage route
 Route::get('/', function () {
     return auth()->check() ? redirect()->route('home') : view('welcome');
-});
+})->name('welcome');
 
 // Welcome route
 Route::get('/', [WelcomeController::class, 'welcome'])->name('welcome');

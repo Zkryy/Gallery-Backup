@@ -59,25 +59,34 @@
         </div>
         <!-- Comments Section -->
         <div id="comments" class="mt-4">
-            @foreach($post->comments as $comment)
-                <div class="bg-white rounded shadow-lg p-4 mb-2 relative">
-                    <strong>{{ $comment->user->name }}</strong>
-                    <!-- Delete icon for comment owners -->
-                    @if(auth()->id() === $comment->user_id)
-                        <form action="{{ route('comments.delete', ['comment' => $comment->id]) }}" method="POST" class="absolute top-0 right-0 mt-8 mr-5">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="bg-white rounded-full p-2 hover:bg-red-600 focus:outline-none transition-transform duration-300 transform hover:scale-105" title="Delete the comment">
-                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 30 30">
-                                    <path d="M 14.984375 2.4863281 A 1.0001 1.0001 0 0 0 14 3.5 L 14 4 L 8.5 4 A 1.0001 1.0001 0 0 0 7.4863281 5 L 6 5 A 1.0001 1.0001 0 1 0 6 7 L 24 7 A 1.0001 1.0001 0 1 0 24 5 L 22.513672 5 A 1.0001 1.0001 0 0 0 21.5 4 L 16 4 L 16 3.5 A 1.0001 1.0001 0 0 0 14.984375 2.4863281 z M 6 9 L 7.7929688 24.234375 C 7.9109687 25.241375 8.7633438 26 9.7773438 26 L 20.222656 26 C 21.236656 26 22.088031 25.241375 22.207031 24.234375 L 24 9 L 6 9 z"></path>
-                                </svg>
-                            </button>
-                        </form>
-                    @endif
-                    <p>{{ $comment->content }}</p>
-                    <small>{{ $comment->created_at->diffForHumans() }}</small>
+            @if($post->comments->isEmpty())
+                <div class="flex flex-col items-center justify-center my-16">
+                    <svg fill="#000000" width="100" height="100" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M971.153 416.338c41.771 250.846 257.282 442.253 517.54 442.253v707.606H729.81L262.71 1920v-353.803H0V416.337ZM1689.51 0l123.824 125.07-200.798 202.817 200.798 202.817-123.824 125.07-200.798-202.818-200.799 202.818-123.824-125.07 200.798-202.817-200.798-202.818L1287.912 0l200.799 202.818L1689.509 0Z" fill-rule="evenodd"/>
+                    </svg>
+                    <p class="text-gray-500 text-xl mt-5">There is no comments available yet for this Image Post</p>
                 </div>
-            @endforeach
+            @else
+                @foreach($post->comments as $comment)
+                    <div class="bg-white rounded shadow-lg p-4 mb-2 relative">
+                        <strong>{{ $comment->user->name }}</strong>
+                        <!-- Delete icon for comment owners -->
+                        @if(auth()->id() === $comment->user_id)
+                            <form action="{{ route('comments.delete', ['comment' => $comment->id]) }}" method="POST" class="absolute top-0 right-0 mt-8 mr-5">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="bg-white rounded-full p-2 hover:bg-red-600 focus:outline-none transition-transform duration-300 transform hover:scale-105" title="Delete the comment">
+                                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 30 30">
+                                        <path d="M 14.984375 2.4863281 A 1.0001 1.0001 0 0 0 14 3.5 L 14 4 L 8.5 4 A 1.0001 1.0001 0 0 0 7.4863281 5 L 6 5 A 1.0001 1.0001 0 1 0 6 7 L 24 7 A 1.0001 1.0001 0 1 0 24 5 L 22.513672 5 A 1.0001 1.0001 0 0 0 21.5 4 L 16 4 L 16 3.5 A 1.0001 1.0001 0 0 0 14.984375 2.4863281 z M 6 9 L 7.7929688 24.234375 C 7.9109687 25.241375 8.7633438 26 9.7773438 26 L 20.222656 26 C 21.236656 26 22.088031 25.241375 22.207031 24.234375 L 24 9 L 6 9 z"></path>
+                                    </svg>
+                                </button>
+                            </form>
+                        @endif
+                        <p>{{ $comment->content }}</p>
+                        <small>{{ $comment->created_at->diffForHumans() }}</small>
+                    </div>
+                @endforeach
+            @endif
         </div>
         <!-- Comment Form -->
         <form action="{{ route('posts.comment', ['post' => $post->id]) }}" method="post" id="commentForm" class="mt-4">

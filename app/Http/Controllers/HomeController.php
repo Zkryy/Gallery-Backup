@@ -10,16 +10,18 @@ class HomeController extends Controller
     //
     public function index(Request $request)
     {
-        $posts = Post::all(); // Retrieve all posts
+        $query = $request->input('query');
 
-        // Check if the user has submitted a search query
-        if ($request->filled('search')) {
-            // Filter posts based on search query
-            $search = $request->input('search');
-            $posts->where('title', 'like', "%$search%")
-                  ->orWhere('description', 'like', "%$search%");
+        // Query the posts based on the search query
+        $posts = Post::query();
+
+        if ($query) {
+            $posts->where('title', 'like', "%$query%")
+                ->orWhere('description', 'like', "%$query%");
         }
 
-        return view('home', compact('posts'));
+        $posts = $posts->get();
+
+        return view('home', compact('posts', 'query'));
     }   
 }
