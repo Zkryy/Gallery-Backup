@@ -7,6 +7,7 @@ use App\Models\Like;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;    
 use App\Models\Post;
+use App\Models\Tag;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -22,7 +23,7 @@ class PostsController extends Controller
             'image' => ['required', 'image', 'mimes:jpeg,png,jpg,gif', 'max:5048'],
         ]);
     
-        $post = new Post;
+        $post = new Post;   
         $post->title = $request->title;
         $post->description = $request->description;
         $post->user_id = auth()->id();
@@ -35,13 +36,21 @@ class PostsController extends Controller
         }
     
         $post->save();
+
+        // Sync tags for the post
+        $tags = $this->processTags($request->input('tags'));
+        $post->tags()->sync($tags);
+        
     
         return back()->withMessage('Your image has been uploaded!');
     }
 
     public function edit(Post $post)
     {
-        return view('posts.edit', compact('post'));
+        // Fetch existing tags associated with the post and format them as a string
+        $existingTags = $post->tags->pluck('name')->implode(',');
+
+        return view('posts.edit', compact('post', 'existingTags'));
     }
 
     public function update(Request $request, Post $post)
@@ -57,10 +66,36 @@ class PostsController extends Controller
     
         // Save the updated post
         $post->save();
+
+        // Sync tags for the post
+        $tags = $this->processTags($request->input('tags'));
+        $post->tags()->sync($tags);
     
         return redirect()->route('detail', ['post' => $post->id])->withMessage('Post updated successfully.');
     }
     
+    private function processTags($tagsInput)
+    {
+        // Split the input string into individual words
+        $tagsArray = preg_split('/\s+/', $tagsInput);
+
+        // Remove any empty elements
+        $tagsArray = array_filter($tagsArray);
+
+        // Remove duplicates
+        $tagsArray = array_unique($tagsArray);
+
+        // Find existing tags and create new ones
+        $tags = [];
+        foreach ($tagsArray as $tagName) {
+            // Check if tag already exists
+            $tag = Tag::firstOrCreate(['name' => $tagName]);
+            $tags[] = $tag->id;
+        }
+
+        return $tags;
+    }   
+
     
     public function destroy(Post $post)
     {
@@ -81,6 +116,7 @@ class PostsController extends Controller
     public function index(Request $request)
     {
         $query = $request->input('query');
+        $tag = $request->input('tag');
 
         // Filter images based on the search query
         $posts = Post::query();
@@ -88,6 +124,12 @@ class PostsController extends Controller
         if ($query) {
             $posts->where('title', 'like', "%$query%")
                 ->orWhere('description', 'like', "%$query%");
+        }
+
+        if ($tag) {
+            $posts->whereHas('tags', function ($query) use ($tag) {
+                $query->where('name', $tag);
+            });
         }
 
         $posts = $posts->get();

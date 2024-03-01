@@ -15,6 +15,12 @@
             <textarea id="description" name="description" rows="3" placeholder="Enter description" class="mt-1 focus:ring-gray-500 focus:border-gray-500 block w-full sm:text-sm border-gray-300 rounded-md"></textarea>
         </div>
         <div>
+            <label for="tags" class="block text-sm font-medium text-gray-700">Tags</label>
+            <input type="text" id="tags" name="tags" placeholder="Enter tags" class="mt-1 focus:ring-gray-500 focus:border-gray-500 block w-full sm:text-sm border-gray-300 rounded-md" onkeydown="handleTagInput(event)">
+
+            <!-- Add validation error message for tags if needed -->
+        </div>
+        <div>
             <label for="image" class="block text-sm font-medium text-gray-700">Image</label>
             <div class="mt-1 flex items-center">
                 <label for="file-upload" class="cursor-pointer bg-gray-800 rounded-md font-medium text-white hover:text-white focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-gray-500 p-2">
@@ -44,6 +50,33 @@
 </div>
 
 <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const tagsInput = document.getElementById("tags");
+        tagsInput.addEventListener("input", function() {
+            const words = tagsInput.value.split(/\s+/);
+            const formattedWords = words.map(word => {
+                if (!word.startsWith("#")) {
+                    return "#" + word;
+                } else {
+                    return word;
+                }
+            });
+            tagsInput.value = formattedWords.join(" ");
+        });
+
+        tagsInput.addEventListener("keydown", function(event) {
+            if (event.key === "Backspace" && tagsInput.selectionStart === tagsInput.selectionEnd) {
+                const cursorPos = tagsInput.selectionStart;
+                if (tagsInput.value.charAt(cursorPos - 1) === "#") {
+                    const newValue = tagsInput.value.substring(0, cursorPos - 1) + tagsInput.value.substring(cursorPos);
+                    tagsInput.value = newValue;
+                    tagsInput.setSelectionRange(cursorPos - 1, cursorPos - 1);
+                    event.preventDefault();
+                }
+            }
+        });
+    });
+
     function previewImage(event) {
         const input = event.target;
         const preview = document.getElementById('image-preview');

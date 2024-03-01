@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description')->nullable();
+            $table->string('cover_image')->nullable(); // Changed to cover_image
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
@@ -28,4 +29,3 @@ return new class extends Migration
         Schema::dropIfExists('albums');
     }
 };
-
