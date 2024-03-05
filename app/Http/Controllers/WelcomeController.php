@@ -10,7 +10,7 @@ class WelcomeController extends Controller
     public function welcome()
     {
         // Retrieve some sample posts
-        $samplePosts = Post::inRandomOrder()->take(8)->get();
+        $samplePosts = Post::inRandomOrder()->take(12)->get();
 
         // Pass the sample posts to the welcome view
         return view('welcome', compact('samplePosts'));
