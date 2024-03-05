@@ -20,7 +20,7 @@
             Browse an image based on its
         </p> 
         <h1 class="text-5xl mb-2 font-medium">
-            <strong id="queryText" class="hover:underline">Query!</strong> or <strong id="tagsText" class="hover:underline">Tags!</strong>
+            <strong id="queryText" class="hover:underline cursor-pointer">Query!</strong> or <strong id="tagsText" class="hover:underline cursor-pointer">Tags!</strong>
         </h1>
     </div>
     <!-- Search Form for images -->
@@ -51,7 +51,7 @@
             </h1>
             <div class="flex">
                 @foreach($tags as $tag)
-                    <button class="tag-button ml-2 mt-2 bg-gray-100 p-2 rounded hover:invert" onclick="submitTagForm('{{ $tag }}')">{{ $tag }}</button>
+                    <button class="tag-button mr-2 mt-2 bg-gray-100 p-2 rounded hover:invert relative transition-transform duration-300 transform hover:scale-105" onclick="submitTagForm('{{ $tag }}')">{{ $tag }}</button>
                 @endforeach
             </div>
         </div>
@@ -69,13 +69,12 @@
                 <h1 class="text-3xl font-book">
                     Showing <strong>{{ count($posts) }}</strong> result
                     @if(request()->has('query'))
-                        for "<strong>{{ request('query') }}</strong>"
+                        for "<strong>{{ request('query') }}</strong>" query
                     @elseif(request()->has('tag'))
-                        for "<strong>{{ request('tag') }}</strong>"
+                        for "<strong>{{ request('tag') }}</strong>" tags
                     @endif
                 </h1>
             </div>
-            
             <div class="p-5 mx-10 bg-white rounded shadow-lg mt-5 columns-4 max-w-7xl mx-auto sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 relative z-10">
                 @foreach($posts as $post)
                     <div class="flex justify-center relative group">
@@ -124,36 +123,64 @@
         </div>
     </footer>
     <script>
-    document.getElementById("queryText").addEventListener("click", function() {
-        document.getElementById("searchFormImages").classList.remove("hidden");
-        document.getElementById("searchFormTags").classList.add("hidden");
-    });
 
-    document.getElementById("tagsText").addEventListener("click", function() {
-        document.getElementById("searchFormImages").classList.add("hidden");
-        document.getElementById("searchFormTags").classList.remove("hidden");
-    });
+        document.addEventListener("DOMContentLoaded", function() {
+            const tagsInput = document.getElementById("search-input-tags");
+            tagsInput.addEventListener("input", function() {
+                const words = tagsInput.value.split(/\s+/); 
+                const formattedWords = words.map(word => {
+                    if (!word.startsWith("#")) {
+                        return "#" + word;
+                    } else {
+                        return word;
+                    }
+                });
+                tagsInput.value = formattedWords.join(" ");
+            });
+    
+            tagsInput.addEventListener("keydown", function(event) {
+                if (event.key === "Backspace" && tagsInput.selectionStart === tagsInput.selectionEnd) {
+                    const cursorPos = tagsInput.selectionStart;
+                    if (tagsInput.value.charAt(cursorPos - 1) === "#") {
+                        const newValue = tagsInput.value.substring(0, cursorPos - 1) + tagsInput.value.substring(cursorPos);
+                        tagsInput.value = newValue;
+                        tagsInput.setSelectionRange(cursorPos - 1, cursorPos - 1);
+                        event.preventDefault();
+                    }
+                }
+            });
+        });
 
 
-    function submitTagForm(tag) {
-        // Set the value of the tag input field
-        document.getElementById("search-input-tags").value = tag;
-        // Submit the tags search form
-        document.getElementById("search-form-tags").submit();
-    }
+        document.getElementById("queryText").addEventListener("click", function() {
+            document.getElementById("searchFormImages").classList.remove("hidden");
+            document.getElementById("searchFormTags").classList.add("hidden");
+        });
 
-    // Show the tag buttons and hide the image search form when the Tags! text is clicked
-    document.getElementById("tagsText").addEventListener("click", function() {
-        document.getElementById("searchFormImages").classList.add("hidden");
-        document.getElementById("searchFormTags").classList.remove("hidden");
-        document.getElementById("tagButtons").classList.remove("hidden");
-    });
+        document.getElementById("tagsText").addEventListener("click", function() {
+            document.getElementById("searchFormImages").classList.add("hidden");
+            document.getElementById("searchFormTags").classList.remove("hidden");
+        });
 
-    // Hide the tag buttons when the Query! text is clicked
-    document.getElementById("queryText").addEventListener("click", function() {
-        document.getElementById("tagButtons").classList.add("hidden");
-    });
+
+        function submitTagForm(tag) {
+            // Set the value of the tag input field
+            document.getElementById("search-input-tags").value = tag;
+            // Submit the tags search form
+            document.getElementById("search-form-tags").submit();
+        }
+
+        // Show the tag buttons and hide the image search form when the Tags! text is clicked
+        document.getElementById("tagsText").addEventListener("click", function() {
+            document.getElementById("searchFormImages").classList.add("hidden");
+            document.getElementById("searchFormTags").classList.remove("hidden");
+            document.getElementById("tagButtons").classList.remove("hidden");
+        });
+
+        // Hide the tag buttons when the Query! text is clicked
+        document.getElementById("queryText").addEventListener("click", function() {
+            document.getElementById("tagButtons").classList.add("hidden");
+        });
     </script>
 </body>
-
 </html>

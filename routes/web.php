@@ -16,9 +16,9 @@ Route::get('/', function () {
 })->name('welcome');
 
 // Homepage route
-Route::get('/album', function () {
-    return view('album');
-})->name('album');
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
 
 // Welcome route
 Route::get('/', [WelcomeController::class, 'welcome'])->name('welcome');
@@ -43,13 +43,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 
-// Album Routes
-Route::middleware(['auth'])->group(function () {
-    Route::get('/albums', [AlbumController::class, 'index'])->name('albums.index');
-    Route::get('/albums/create', [AlbumController::class, 'create'])->name('albums.create');
-    Route::post('/albums', [AlbumController::class, 'store'])->name('albums.store');
-    // Add more routes for managing albums as needed
-});
+
 
 
 // Detail route for unauthenticated users

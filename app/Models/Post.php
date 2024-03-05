@@ -22,11 +22,6 @@ class Post extends Model
         return $this->hasMany(Comment::class);
     }
 
-    public function albums()
-    {
-        return $this->belongsToMany(Album::class)->withTimestamps();
-    }
-
     protected $fillable = ['title', 'description', 'image'];
 
     public function tags()

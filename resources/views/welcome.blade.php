@@ -43,7 +43,7 @@
         </div>
     </nav>
     <section class="bg-blue">
-        <header class="text-center pt-52 pb-10 mb-5">
+        <header class="text-center pt-44 pb-10 mb-10">
             <h1 class="text-6xl font-bold"><a class="font-medium">Welcome to</a> Gallery!</h1>
             <p class="text-xl mt-2">Lets find cool and beautiful picture for you.</p>
         </header>
@@ -116,22 +116,12 @@
         <hr class="border-gray-300"/>
         <div class="bg-white-300 p-16 flex items-center justify-end">
             <div class="text-right">
-                <h1 class="text-3xl font-bold mb-4">Album!</h1>
+                <h1 class="text-3xl font-bold mb-4">Edit!</h1>
                 <p class="pl-1">
-                    Effortlessly curate your image collection with the album feature. Organize and group your photos based on themes, events, or preferences to create personalized collections. Simplify navigation and showcase your content with ease.
-                </p>
-            </div>
-            <img src="https://icon-library.com/images/album-icon/album-icon-3.jpg" alt="album icon" width="200px" class="ml-4">
-        </div>
-        <hr class="border-gray-300"/>
-        <div class="bg-white-300 p-16 flex items-center mb-4">
-            <img src="https://cdn-icons-png.flaticon.com/512/32/32355.png" alt="upload icon" width="200px" class="mr-4">
-            <div>
-                <h1 class="text-3xl font-bold text-left mb-4">Edit!</h1>
-                <p class="text-left pl-1">     
                     Refine and perfect your image posts with the edit feature. Update captions and descriptions effortlessly to ensure your content accurately reflects your vision. Customize and enhance your posts seamlessly to captivate your audience.
                 </p>
             </div>
+            <img src="https://cdn-icons-png.flaticon.com/512/32/32355.png" alt="upload icon" width="200px" class="ml-4">
         </div>
     </div>
     <footer class="bg-gray-100 mt-16">
