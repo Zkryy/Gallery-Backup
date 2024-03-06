@@ -56,6 +56,7 @@
             </div>
         </div>
     </div>
+    <!--- show images ---->
     <div class="pb-16 mx-10 mt-5 bg-gray-100 relative">
         @if($posts->isEmpty())
             <!-- Show "No Result Found" text and SVG icon -->
@@ -78,6 +79,7 @@
             <div class="p-5 mx-10 bg-white rounded shadow-lg mt-5 columns-4 max-w-7xl mx-auto sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 relative z-10">
                 @foreach($posts as $post)
                     <div class="flex justify-center relative group">
+                        <!-- show detail image -->
                         <a href="{{ route('detail', ['post' => $post->id]) }}">
                             <div class="bg-gray-200 overflow-hidden rounded-lg relative transition-transform duration-300 transform hover:scale-105">
                                 <img src="{{ asset('images/' . $post->image)}}" class="object-cover w-full aspect-square" alt="Post Image">
@@ -90,6 +92,7 @@
                     </div>
                 @endforeach
             </div>
+            <!--- not seeing? ---->
             <div class="mt-24 ml-10">
                 <h1 class="text-4xl font-medium text-center">
                     Not seeing your image up there?, lets try to <strong><a class="hover:underline" href="{{ route('dashboard')}}">Upload!</a></strong>
@@ -97,6 +100,7 @@
             </div>  
         @endif      
     </div>
+    <!--- paling bawah --->
     <footer class="bg-gray-100 mt-16">
         <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
             <div class="sm:flex sm:items-center sm:justify-between">
@@ -116,6 +120,8 @@
             <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2024 <a href="https://flowbite.com/" class="hover:underline">Gallery!™</a>. All Rights Reserved.</span>
         </div>
     </footer>  
+
+    <!-- javascript code -->
     <script>
 
         document.addEventListener("DOMContentLoaded", function() {

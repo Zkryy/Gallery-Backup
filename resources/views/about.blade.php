@@ -15,44 +15,49 @@
 </head>
 <body class="bg-gray-100">
     @include('layouts.navigation')
-        <div class="bg-gray-100 mb-6 ml-10 mt-10 text-center justify-center">
-            <h1 class="text-4xl mb-2 font-medium">
-                introducing <strong>Kelompok 2</strong>
-            </h1>
-        </div>
-    <div class="grid grid-cols-2 gap-6 my-10 ml-64 mr-10">
-      <!-- Team Member 1 -->
-      <div class="max-w-xs bg-white rounded overflow-hidden shadow-lg p-10">
-          <img class="w-32 mx-auto rounded-full" src="/images/DSC_6741.JPG" alt="Team Member 1">
-          <div class="text-center mt-2">
-              <h3 class="text-lg font-semibold">M. Dzikri Maulana</h3>
-          </div>
-      </div>
-  
-      <!-- Team Member 2 -->
-      <div class="max-w-xs bg-white rounded overflow-hidden shadow-lg p-10">
-          <img class="w-32 h-32 mx-auto rounded-full" src="/images/DSC_6722.JPG" alt="Team Member 2">
-          <div class="text-center mt-2">
-              <h3 class="text-lg font-semibold">Synta</h3>
-          </div>
-      </div>
-  
-      <!-- Team Member 3 -->
-      <div class="max-w-xs bg-white rounded overflow-hidden shadow-lg p-10">
-          <img class="w-32 h-32 mx-auto rounded-full" src="/images/DSC_6745.JPG" alt="Team Member 3">
-          <div class="text-center mt-2">
-              <h3 class="text-lg font-semibold">Faridz Al-farizi</h3>
-          </div>
-      </div>
+    <div class="bg-gray-100 mb-6 ml-10 mt-10 text-center justify-center">
+        <h1 class="text-4xl mb-2 font-medium">
+            introducing <strong>Kelompok 2</strong>
+        </h1>
+    </div>
 
-      <!-- Team Member 4 -->
-      <div class="max-w-xs bg-white rounded overflow-hidden shadow-lg p-10">
-          <img class="w-32 h-32 mx-auto rounded-full" src="/images/DSC_6759.JPG" alt="Team Member 4">
-          <div class="text-center mt-2">
-              <h3 class="text-lg font-semibold">Muhammad Agung</h3>
-          </div>
-      </div>
-    </div>  
+    <div class="max-w-2xl mx-auto sm:px-6 lg:px-8 justify-items-center">
+        <div class="grid mt-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-5">
+            <!-- Team Member 1 -->
+            <div class="max-w-xs bg-white rounded overflow-hidden shadow-lg p-10">
+                <img class="w-32 h-32 mx-auto rounded-full" src="/images/DSC_6741.JPG" alt="Team Member 1">
+                <div class="text-center mt-2">
+                    <h3 class="text-lg font-semibold">M. Dzikri Maulana</h3>
+                </div>
+            </div>
+        
+            <!-- Team Member 2 -->
+            <div class="max-w-xs bg-white rounded overflow-hidden shadow-lg p-10">
+                <img class="w-32 h-32 mx-auto rounded-full" src="/images/DSC_6722.JPG" alt="Team Member 2">
+                <div class="text-center mt-2">
+                    <h3 class="text-lg font-semibold">Synta</h3>
+                </div>
+            </div>
+        
+            <!-- Team Member 3 -->
+            <div class="max-w-xs bg-white rounded overflow-hidden shadow-lg p-10">
+                <img class="w-32 h-32 mx-auto rounded-full" src="/images/DSC_6745.JPG" alt="Team Member 3">
+                <div class="text-center mt-2">
+                    <h3 class="text-lg font-semibold">Farid Al-farizi</h3>
+                </div>
+            </div>
+        
+            <!-- Team Member 4 -->
+            <div class="max-w-xs bg-white rounded overflow-hidden shadow-lg p-10">
+                <img class="w-32 h-32 mx-auto rounded-full" src="/images/DSC_6759.JPG" alt="Team Member 4">
+                <div class="text-center mt-2">
+                    <h3 class="text-lg font-semibold">Muhammad Agung</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+        
     <footer class="bg-gray-100 mt-16">
         <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
             <div class="sm:flex sm:items-center sm:justify-between">

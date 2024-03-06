@@ -24,7 +24,7 @@
         </p>
     </div>
 
-    <div class="max-w-screen-xl mx-auto flex justify-center mt-5 mr-10 ml-10 mb-10 bg-white rounded shadow-lg p-5">
+    <div class="max-w-screen-xl flex justify-center mt-5 mr-10 ml-10 mb-10 bg-white rounded shadow-lg p-5">
         <div class="flex items-start justify-center w-ful rounded relative">
             <button onclick="goBack()" type="button" title="back to previous page" class="absolute top-0 right-0 mb-15 bg-white hover:invert p-1 rounded-full transition-transform duration-300 transform hover:scale-105">
                 <svg fill="#000000" height="40" width="40" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 

@@ -3,8 +3,7 @@
         <div class="my-3">
             <h1 class="text-2xl font-medium">
                 <strong>Upload!</strong> your own image
-            </h1>
-        </div>  
+            </h1> 
         <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
             @csrf
             <div>
@@ -17,7 +16,7 @@
             </div>
             <div>
                 <label for="tags" class="block text-sm font-medium text-gray-700">Tags</label>
-                <input type="text" id="tags" name="tags" placeholder="Enter tags" class="mt-1 focus:ring-gray-500 focus:border-gray-500 block w-full sm:text-sm border-gray-300 rounded-md" onkeydown="handleTagInput(event)">
+                <input type="text" id="tags" name="tags" placeholder="tambah tags" class="mt-1 focus:ring-gray-500 focus:border-gray-500 block w-full sm:text-sm border-gray-300 rounded-md" onkeydown="handleTagInput(event)">
 
                 <!-- Add validation error message for tags if needed -->
             </div>
@@ -28,8 +27,13 @@
                         <span>Choose Image</span>
                         <input id="file-upload" name="image" type="file" class="sr-only" onchange="previewImage(event)">
                     </label>
-                </div>  
-            </div>  
+                </div>
+                <!-- Warning message -->
+                <div id="warning-message" class="hidden my-3 bg-red-100 border border-red-400 text-red-700 px-4 py-4 rounded" role="alert">
+                    <h1 class="font-bold"> WARNING! </h1>
+                    <p>Prohibition for uploading a sensitive images</p>
+                </div>
+            </div>            
             <div>
                 @include('layouts.message')
             </div>  
@@ -41,7 +45,8 @@
     </div>
     <!-- Preview Image Container -->
     <div class="w-1/2 flex absolute top-0 right-0 mt-80">
-        <div id="image-preview-container" class="relative hidden w-96 h-72">
+        <svg xmlns="http://www.w3.org/2000/svg" class="pb-10" width="450" height="450" viewBox="0 0 512 512" id="upload"><path d="M398.1 233.2c0-1.2.2-2.4.2-3.6 0-65-51.8-117.6-115.7-117.6-46.1 0-85.7 27.4-104.3 67-8.1-4.1-17.2-6.5-26.8-6.5-29.5 0-54.1 21.9-58.8 50.5C57.3 235.2 32 269.1 32 309c0 50.2 40.1 91 89.5 91H224v-80h-48.2l80.2-83.7 80.2 83.6H288v80h110.3c45.2 0 81.7-37.5 81.7-83.4 0-45.9-36.7-83.2-81.9-83.3z"></path></svg>
+        {{-- <div id="image-preview-container" class="relative hidden w-96 h-72">
             <!-- Adjust the width and height of the image to show the full image -->
             <img id="image-preview" class="object-cover w-full h-full rounded-md" alt="Image Preview">
             <p id="image-preview-filename" class="text-xs text-gray-600 mt-2"></p>
@@ -51,11 +56,38 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
             </button>
-        </div>
+        </div> --}}
     </div>
 </div>
 
 <script>
+        function previewImage(event) {
+        // Your existing code for previewing the image
+
+        // Show the warning message if necessary
+        const file = event.target.files[0];
+        const warningMessage = document.getElementById('warning-message');
+
+        // Check if the file is an image or if it's sensitive/negative
+        if (file && !isImage(file) || isSensitiveOrNegative(file)) {
+            warningMessage.classList.remove('hidden');
+        } else {
+            warningMessage.classList.add('hidden');
+        }
+    }
+
+    // Function to check if a file is an image
+    function isImage(file) {
+        return file.type.startsWith('image/');
+    }
+
+    // Function to check if a file is sensitive or negative (you need to implement this)
+    function isSensitiveOrNegative(file) {
+        // Implement your logic to check for sensitive or negative content
+        // For demonstration purposes, let's assume we always show the warning
+        return true;
+    }
+
     document.addEventListener("DOMContentLoaded", function() {
         const tagsInput = document.getElementById("tags");
         tagsInput.addEventListener("input", function() {
@@ -83,30 +115,30 @@
         });
     });
 
-    function previewImage(event) {
-        const input = event.target;
-        const preview = document.getElementById('image-preview');
-        const previewContainer = document.getElementById('image-preview-container');
-        const cancelBtn = document.getElementById('cancel-preview-btn');
+    // function previewImage(event) {
+    //     const input = event.target;
+    //     const preview = document.getElementById('image-preview');
+    //     const previewContainer = document.getElementById('image-preview-container');
+    //     const cancelBtn = document.getElementById('cancel-preview-btn');
 
-        if (input.files && input.files[0]) {
-            const reader = new FileReader();
+    //     if (input.files && input.files[0]) {
+    //         const reader = new FileReader();
 
-            reader.onload = function (e) {
-                preview.src = e.target.result;
-                previewContainer.classList.remove('hidden');
-            }
+    //         reader.onload = function (e) {
+    //             preview.src = e.target.result;
+    //             previewContainer.classList.remove('hidden');
+    //         }
 
-            reader.readAsDataURL(input.files[0]);
-        } else {
-            preview.src = '';
-            previewContainer.classList.add('hidden');
-        }
+    //         reader.readAsDataURL(input.files[0]);
+    //     } else {
+    //         preview.src = '';
+    //         previewContainer.classList.add('hidden');
+    //     }
 
-        cancelBtn.addEventListener('click', function() {
-            input.value = ''; // Clear the file input
-            preview.src = ''; // Clear the image preview
-            previewContainer.classList.add('hidden'); // Hide the preview container
-        });
-    }
+    //     cancelBtn.addEventListener('click', function() {
+    //         input.value = ''; // Clear the file input
+    //         preview.src = ''; // Clear the image preview
+    //         previewContainer.classList.add('hidden'); // Hide the preview container
+    //     });
+    // }
 </script>
